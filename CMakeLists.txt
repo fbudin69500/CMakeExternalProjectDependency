@@ -22,8 +22,8 @@ set(MyExternalProject external_project_library)
 link_directories(${CMAKE_CURRENT_BINARY_DIR}/external_project_library-build)
 add_library(test_library STATIC IMPORTED)
 set_property(TARGET test_library PROPERTY IMPORTED_LOCATION
-    libtest_library.a)    
+   ${CMAKE_CURRENT_BINARY_DIR}/${MyExternalProject}-build/libtest_library.a)
 add_dependencies(test_library ${MyExternalProject})
 add_executable(test_executable executable.cxx)
 
-target_link_libraries(test_executable $<TARGET_FILE:test_library>)
+target_link_libraries(test_executable test_library)
