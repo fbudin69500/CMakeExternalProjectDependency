@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.2)
 
 option(Superbuild "Build Superbuild" ON)
 
@@ -17,6 +17,9 @@ set(MyExternalProject external_project_library)
     INSTALL_COMMAND ""
    CMAKE_ARGS
     -DSuperbuild:BOOL=OFF
+   # BUILD_BYPRODUCTS is required for 'ninja' to build the external project first
+   # It is only available in CMake 3.2 and above.
+   BUILD_BYPRODUCTS ${CMAKE_CURRENT_BINARY_DIR}/${MyExternalProject}-build/libtest_library.a
     )
 
 link_directories(${CMAKE_CURRENT_BINARY_DIR}/external_project_library-build)
